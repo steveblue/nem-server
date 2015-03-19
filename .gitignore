@@ -1,0 +1,11 @@
+.idea
+.DS_Store
+\#.DS_Store#
+node_modules
+bower_components
+build
+*.swp
+*.swo
+*.bak
+*.log
+#.DS_Store#

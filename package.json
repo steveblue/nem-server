@@ -1,0 +1,19 @@
+{
+    "name": "nem-server",
+    "version": "0.0.1",
+    "main": "server.js",
+    "private": true,
+    "description": "Node, Express, Mongoose Server",
+    "keywords": "node, express, npm, mongoose, server",
+    "contributors": [
+      "Steve Belovarich <steve@mediahound.com>"
+    ],
+    "dependencies": {
+        "express": "~4.0.0",
+        "mongoose": "~3.6.13",
+        "body-parser": "~1.0.1",
+        "gulp": "=3.8.11",
+        "gulp-express": "=0.3.0",
+        "gulp-jshint": "=1.8.4"
+    }
+}
