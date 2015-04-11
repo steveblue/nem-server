@@ -11,13 +11,15 @@ var mongoose = require('mongoose');
 
 // app vars
 var app = express(); // define our app using express
-var port = process.env.PORT || 5555; // set our port
+
+var config = require('./config');
+var port = config.originPort || process.env.PORT; // set our port
 
 // =========================================================================
 // MongoDB Config
 // =========================================================================
 
-mongoose.connect('mongodb://localhost:27017'); // connect to our database
+mongoose.connect('mongodb://'+config.mongo+':'+config.mongoPort); // connect to our database
 
 // =========================================================================
 // Express Config
@@ -44,5 +46,6 @@ var routes = require('./router')(app);
 // =========================================================================
 
 app.listen(port);
-console.log('Server on port ' + port);
+console.log('Express available at '+config.origin+':'+config.originPort);
+console.log('MongoDB available at '+config.mongo+':'+config.mongoPort);
 module.exports = app;

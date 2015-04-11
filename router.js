@@ -31,7 +31,8 @@ module.exports = function(app) {
   // =========================================================================
 
   app.use('/api', router);
-  app.use('/api/users', require('./app/routes/user'));
+  app.use('/api/user', require('./app/routes/user'));
+  app.use('/api/login', require('./app/routes/login'));
 
   return router;
 

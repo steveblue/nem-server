@@ -18,7 +18,9 @@ var UserSchema = new Schema({
     firstName: String,
     lastName: String,
     username: String,
-    lastUpdated : Date
+    email: String,
+    lastUpdated : Date,
+    created: Date
 });
 
 module.exports = mongoose.model('User', UserSchema);
