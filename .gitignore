@@ -9,3 +9,5 @@ build
 *.bak
 *.log
 #.DS_Store#
+docs
+yuidoc.json

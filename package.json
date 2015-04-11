@@ -9,11 +9,13 @@
     "Steve Belovarich <steve@mediahound.com>"
   ],
   "dependencies": {
-    "express": "~4.0.0",
-    "mongoose": "~3.6.13",
     "body-parser": "~1.0.1",
+    "express": "~4.0.0",
     "gulp": "=3.8.11",
     "gulp-express": "=0.3.0",
-    "gulp-jshint": "=1.8.4"
+    "gulp-jshint": "=1.8.4",
+    "gulp-yuidoc": "^0.1.2",
+    "mongoose": "~3.6.13",
+    "yuidoc-lucid-theme": "^0.1.1"
   }
 }

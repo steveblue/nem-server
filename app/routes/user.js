@@ -4,6 +4,23 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 
+
+/**
+ * User Routes
+ *
+ * @class users
+ * @constructor
+ */
+
+
+ /**
+  * endpoint: `/users/`
+  *
+  * @method get
+  * @return {Array}
+  */
+
+
 router.get('/',function(req, res) {
   User.find(function(err, users) {
     if (err) {
@@ -13,6 +30,17 @@ router.get('/',function(req, res) {
     }
   });
 });
+
+/**
+ * endpoint: `/users/`
+ * Creates a new user.
+ *
+ * @method post
+ * @param {String} firstName The new user's first name.
+ * @param {String} lastName The new user's last name.
+ * @param {String} username The new user's intended username.
+ */
+
 
 router.post('/',function(req, res) {
 
