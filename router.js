@@ -4,7 +4,7 @@
 // @authors: Steve Belovarich
 // ===========================================================================
 
-module.exports = function(app,swagger) {
+module.exports = function(app) {
   'use strict';
 
   var router = require('express').Router();

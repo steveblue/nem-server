@@ -47,7 +47,7 @@ app.use(function(err, req, res, next) {
 // swagger.configure("http://localhost:5555/docs", "0.1");
 
 // Couple the application to the router.
-var routes = require('./router')(app,swagger);
+var routes = require('./router')(app);
 
 
 // =========================================================================
