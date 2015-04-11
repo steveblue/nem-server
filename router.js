@@ -1,8 +1,10 @@
-// routes.js
+// ===========================================================================
+// router.js
 // @description: Setup api routes.
 // @authors: Steve Belovarich
 // ===========================================================================
-module.exports = function(app) {
+
+module.exports = function(app,swagger) {
   'use strict';
 
   var router = require('express').Router();
@@ -24,7 +26,10 @@ module.exports = function(app) {
     });
   });
 
-  // prefix all routes with api
+  // =========================================================================
+  // ROUTES
+  // =========================================================================
+
   app.use('/api', router);
   app.use('/api/users', require('./app/routes/user'));
 

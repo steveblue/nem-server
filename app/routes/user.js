@@ -4,6 +4,15 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 
+router.get('/',function(req, res) {
+  User.find(function(err, users) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(users);
+    }
+  });
+});
 
 router.post('/',function(req, res) {
 
@@ -23,16 +32,6 @@ router.post('/',function(req, res) {
       });
     });
 
-});
-
-router.get('/',function(req, res) {
-  User.find(function(err, users) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.json(users);
-    }
-  });
 });
 
 router.get('/:user_id',function(req, res) {
@@ -97,7 +96,7 @@ router.delete('/:user_id',function(req, res) {
 });
 
 
-router.post('/find/:username',function(req, res) {
+router.get('/find/:username',function(req, res) {
 
   User.findOne({username: new RegExp('^'+req.params.username+'$', "i")}, function(err, user) {
     if (err) {
