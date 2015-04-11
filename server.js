@@ -36,12 +36,6 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
 });
 
-// =========================================================================
-// App Modules
-// =========================================================================
-
-
-// Couple the application to the router.
 var routes = require('./router')(app);
 
 

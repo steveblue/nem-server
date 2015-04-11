@@ -12,6 +12,7 @@
     "body-parser": "~1.0.1",
     "express": "~4.0.0",
     "gulp": "=3.8.11",
+    "gulp-doxx": "0.0.4",
     "gulp-express": "=0.3.0",
     "gulp-jshint": "=1.8.4",
     "gulp-yuidoc": "^0.1.2",

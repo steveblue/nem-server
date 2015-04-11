@@ -1,5 +1,18 @@
-var mongoose     = require('mongoose');
-var Schema       = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema   = mongoose.Schema;
+
+/**
+ * User
+ *
+ * The model for a user.
+ *
+ *
+ * @param {String} firstName The new user's first name.
+ * @param {String} lastName The new user's last name.
+ * @param {String} username The new user's intended username.
+ * @return {Object} User The User Object.
+ */
+
 
 var UserSchema = new Schema({
     firstName: String,
