@@ -17,7 +17,7 @@ var port = process.env.PORT || 5555; // set our port
 // MongoDB Config
 // =========================================================================
 
-mongoose.connect('mongodb://104.236.145.120:27017'); // connect to our database
+mongoose.connect('mongodb://localhost:27017'); // connect to our database
 
 // =========================================================================
 // Express Config
