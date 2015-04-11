@@ -40,11 +40,6 @@ app.use(function(err, req, res, next) {
 // App Modules
 // =========================================================================
 
-// Couple the application to the Swagger module.
-// var swagger = require("swagger-node-express").createNew(app);
-// swagger.addModels(require('./app/swagger/models'));
-// require('./app/swagger/routes')(swagger);
-// swagger.configure("http://localhost:5555/docs", "0.1");
 
 // Couple the application to the router.
 var routes = require('./router')(app);

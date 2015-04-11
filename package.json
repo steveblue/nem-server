@@ -15,8 +15,5 @@
     "gulp": "=3.8.11",
     "gulp-express": "=0.3.0",
     "gulp-jshint": "=1.8.4"
-  },
-  "devDependencies": {
-    "swagger-node-express": "^2.1.3"
   }
 }
