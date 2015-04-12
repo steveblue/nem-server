@@ -50,11 +50,9 @@ module.exports = nemConfig;
 You can use config files like this to deploy the nem server to multiple environments.
 
 
-To start the express server, run `gulp dev`.
+To start the express server, run `gulp dev` or `node server` in the root folder.
 
-Changes to .js files will update the server and restart it.
-
-
+Changes to .js files will update the server and restart it when using gulp.
 
 
 
@@ -67,3 +65,4 @@ Changes to .js files will update the server and restart it.
 * Integrate package for emailing notifications to Users.
 * Integrate package for texting notifications to Users.
 * Expand the Strategies used with passport to offer login with Facebook, Twitter, Github, and more.
+* Update gulp tasks to build for multiple environments.
