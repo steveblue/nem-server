@@ -21,7 +21,7 @@ var passport = require('passport');
 router.post('/', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
-    if (!user) { return res.redirect('/login'); }
+    if (!user) { return res.send(401); }
     req.login(user, function(err) {
       if (err) { return next(err); }
       return res.json({user: user});

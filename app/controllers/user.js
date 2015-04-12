@@ -13,13 +13,18 @@ var UserController = function(){};
  */
 
 UserController.prototype.fetchUsers = function(req,res){
-  User.find(function(err, users) {
-    if (err) {
-      return res.send(err);
-    } else {
-      return res.json(users);
-    }
-  });
+  if (req.user) {
+    User.find(function(err, users) {
+      if (err) {
+        return res.send(err);
+      } else {
+        return res.json(users);
+      }
+    });
+  } else {
+    res.send(401);
+  }
+
 };
 
 /**
@@ -30,13 +35,18 @@ UserController.prototype.fetchUsers = function(req,res){
  */
 
 UserController.prototype.fetchUser = function(req,res){
-  User.findById(req.params.user_id, function(err, user) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.json(user);
-    }
-  });
+  if (req.user) {
+    User.findById(req.params.user_id, function(err, user) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(user);
+      }
+    });
+  }
+  else {
+    res.send(401);
+  }
 };
 
 /**
@@ -74,6 +84,7 @@ UserController.prototype.createUser = function(req,res){
 
 
 UserController.prototype.updateUser = function(req,res){
+  if (req.user) {
   User.findById(req.params.user_id, function(err, user) {
 
     if (err) {
@@ -107,6 +118,9 @@ UserController.prototype.updateUser = function(req,res){
     });
 
   });
+  }else{
+    res.send(401);
+  }
 };
 
 /**
@@ -137,13 +151,17 @@ UserController.prototype.deleteUser = function(req,res){
  */
 
 UserController.prototype.findUserByUsername = function(req,res){
-  User.findOne({username: new RegExp('^'+req.params.username+'$', "i")}, function(err, user) {
-    if (err) {
-      res.send(err);
-    } else {
-      res.json(user);
-    }
-  });
+  if(req.user){
+    User.findOne({username: new RegExp('^'+req.params.username+'$', "i")}, function(err, user) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.json(user);
+      }
+    });
+  }else{
+    res.send(401);
+  }
 };
 
 module.exports = UserController;
