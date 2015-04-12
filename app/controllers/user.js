@@ -6,7 +6,7 @@ var UserController = function(){};
  * Lists all users.
  *
  *
- * NOTE: Will be refactored to only display online users.
+ * TODO: Refactor to only display online users.
  *
  * @param {Object} req the request.
  * @param {Object} res the response.
@@ -103,6 +103,7 @@ UserController.prototype.updateUser = function(req,res){
         details: JSON.stringify(user),
         request: JSON.stringify(req.body)
       });
+
     });
 
   });

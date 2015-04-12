@@ -1,9 +1,9 @@
-// User Routes
+// Session Auth Route
 
 var express = require('express');
-var user = require('../models/user');
-var accountController = require('../controllers/account');
+var SessionController = require('../controllers/session');
 var router = express.Router();
+var passport = require('passport');
 
 /**
  * Login to the service.
@@ -18,8 +18,15 @@ var router = express.Router();
  */
 
 
-router.get('/',function(req, res) {
-
+router.post('/', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { return res.redirect('/login'); }
+    req.login(user, function(err) {
+      if (err) { return next(err); }
+      return res.json({user: user});
+    });
+  })(req, res, next);
 });
 
 module.exports = router;
