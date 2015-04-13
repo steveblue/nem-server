@@ -65,8 +65,10 @@ Here is a simple [front end SPA example](https://github.com/steveblue/xhr-api-ex
 
 * Add user image and image handling example.
 * Create better error reporting for login and signup.
-* Create endpoints for resetting password.
+* Create endpoints for password recovery.
 * Integrate package for emailing notifications to Users.
 * Integrate package for texting notifications to Users.
 * Expand the Strategies used with passport to offer login with Facebook, Twitter, Github, and more.
 * Update gulp tasks to build for multiple environments.
+* Settle on doc solution, probably doxx.
+* Implement tests.
