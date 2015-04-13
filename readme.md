@@ -1,6 +1,7 @@
-#NEM Server RESTful API Boilerplate v0.5
+#Node Express Mongoose Server
 
-##Node, Express, Mongoose, Passport.
+##API Boilerplate v0.5
+
 
 This repo is a boilerplate for creating new RESTful APIs with Node.js. Out of the box, the API offers user authentication by username and password. Some endpoints are protected and require user authentication. Create a new user, login, and begin making requests. Users are saved in MongoDB using Mongoose. Authorization is provided by Passport.
 
@@ -55,10 +56,11 @@ To start the express server, run `gulp dev` or `node server` in the root folder.
 Changes to .js files will update the server and restart it when using gulp.
 
 
+Here is a simple [front end SPA example](https://github.com/steveblue/xhr-api-example) that uses XMLHttpRequest to login, logout and signup a User. 
+
 
 ###TODO
 
-* Deploy example front end to git.
 * Add user image and image handling example.
 * Create better error reporting for login and signup.
 * Create endpoints for resetting password.
