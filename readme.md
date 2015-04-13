@@ -40,7 +40,7 @@ Create config.js in the root folder and add the following content to the file.
 var nemConfig = {
   origin: 'localhost',
   originPort: 4444,
-  mongo: 'localhost,
+  mongo: 'localhost',
   mongoPort: 27017,
   key: 'thesessionkey'
 };
