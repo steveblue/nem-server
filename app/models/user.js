@@ -28,6 +28,13 @@ var UserSchema = new Schema({
     created: Date
 });
 
+// prevent password hash from being returned in model
+UserSchema.methods.toJSON = function() {
+  var obj = this.toObject();
+  delete obj.password;
+  return obj;
+};
+
 
 UserSchema.methods.comparePassword = function(candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
