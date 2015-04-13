@@ -9,9 +9,11 @@ Authors: Steve Belovarich
 
 ###Prequisites
 
+* node
 * npm
 * gulp
 * mongodb database
+
 
 ###Installation
 
@@ -56,7 +58,7 @@ To start the express server, run `gulp dev` or `node server` in the root folder.
 Changes to .js files will update the server and restart it when using gulp.
 
 
-Here is a simple [front end SPA example](https://github.com/steveblue/xhr-api-example) that uses XMLHttpRequest to login, logout and signup a User. 
+Here is a simple [front end SPA example](https://github.com/steveblue/xhr-api-example) that uses XMLHttpRequest to login, logout and signup a User.
 
 
 ###TODO
