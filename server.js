@@ -81,7 +81,6 @@ passport.use(new LocalStrategy(function(username, password, done) {
 
 var routes = require('./router')(app);
 
-
 // =========================================================================
 // Server Start
 // =========================================================================

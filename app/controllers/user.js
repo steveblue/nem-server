@@ -1,4 +1,5 @@
 var User = require('../models/user.js');
+var fs = require('fs');
 
 var UserController = function(){};
 
@@ -47,31 +48,6 @@ UserController.prototype.fetchUser = function(req,res){
   else {
     res.send(401);
   }
-};
-
-/**
- * Creates a new user.
- *
- * @param {Object} req the request.
- * @param {Object} res the response.
- */
-
-UserController.prototype.createUser = function(req,res){
-  var user = new User(); // create a new instance of the User model
-  user.firstName = req.body.firstName;
-  user.lastName = req.body.lastName;
-  user.username = req.body.username;
-  user.lastUpdated = user.created = new Date();
-
-  // save the user and check for errors
-  user.save(function(err) {
-    if (err) {
-      res.send(err);
-    }
-    res.json({
-      message: 'User created! ' + JSON.stringify(user)
-    });
-  });
 };
 
 

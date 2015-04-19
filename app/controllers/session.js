@@ -1,5 +1,6 @@
 var User = require('../models/user');
 var passport = require('passport');
+var fs = require('fs');
 
 var SessionController = function(){};
 
@@ -31,8 +32,20 @@ SessionController.prototype.auth = function(req, res) {
   })(req, res, next);
 };
 
+/**
+ * Creates a new user.
+ *
+ * @param {Object} req the request.
+ * @param {Object} res the response.
+ */
+
 SessionController.prototype.create = function(req, res, next){
   var user = new User(req.body);
+  var buffer = req.body.avatar.image.replace(/^data:image\/(png|gif|jpeg);base64,/,'');
+
+  user.lastUpdated = user.created = new Date();
+  user.avatar.image = "/img/user/avatar/"+user.username+"-avatar.png";
+
   User.findOne({username: user.username}, function (err, results) {
       if (err) return next(err);
       if (results) {
@@ -41,6 +54,11 @@ SessionController.prototype.create = function(req, res, next){
       else {
           user.save(function (err, results) {
               if (err) return next(err);
+              fs.writeFile("./img/user/avatar/"+user.username+"-avatar.png", buffer, 'base64', function(err) {
+                if(err) {
+                  console.log("err", err);
+                }
+              });
               return res.send(200);
           });
       }

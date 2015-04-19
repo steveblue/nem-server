@@ -25,7 +25,10 @@ var UserSchema = new Schema({
     resetPasswordToken: String,
     resetPasswordExpires: Date,
     lastUpdated : Date,
-    created: Date
+    created: Date,
+    avatar: {
+        image: String
+    }
 });
 
 // prevent password hash from being returned in model
