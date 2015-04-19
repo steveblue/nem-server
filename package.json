@@ -19,11 +19,9 @@
     "gulp-doxx": "0.0.4",
     "gulp-express": "=0.3.0",
     "gulp-jshint": "=1.8.4",
-    "gulp-yuidoc": "^0.1.2",
     "mongoose": "~3.6.13",
     "node-uuid": "^1.4.3",
     "passport": "^0.2.1",
-    "passport-local": "^1.0.0",
-    "yuidoc-lucid-theme": "^0.1.1"
+    "passport-local": "^1.0.0"
   }
 }

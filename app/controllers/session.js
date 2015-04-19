@@ -1,6 +1,7 @@
 var User = require('../models/user');
 var passport = require('passport');
 var fs = require('fs');
+var uuid = require('node-uuid');
 
 var SessionController = function(){};
 
@@ -42,9 +43,9 @@ SessionController.prototype.auth = function(req, res) {
 SessionController.prototype.create = function(req, res, next){
   var user = new User(req.body);
   var buffer = req.body.avatar.image.replace(/^data:image\/(png|gif|jpeg);base64,/,'');
-
+  var id = uuid.v4();
   user.lastUpdated = user.created = new Date();
-  user.avatar.image = "/img/user/avatar/"+user.username+"-avatar.png";
+  user.avatar.image = '/img/user/avatar/user-avatar-'+user.username+'-'+id+'.jpg';
 
   User.findOne({username: user.username}, function (err, results) {
       if (err) return next(err);
@@ -54,7 +55,7 @@ SessionController.prototype.create = function(req, res, next){
       else {
           user.save(function (err, results) {
               if (err) return next(err);
-              fs.writeFile("./img/user/avatar/"+user.username+"-avatar.png", buffer, 'base64', function(err) {
+              fs.writeFile('./img/user/avatar/user-avatar-'+user.username+'-'+id+'.jpg', buffer, 'base64', function(err) {
                 if(err) {
                   console.log("err", err);
                 }
