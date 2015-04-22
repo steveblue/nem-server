@@ -3,7 +3,7 @@
 // @description: Setup api routes.
 // @authors: Steve Belovarich
 // ===========================================================================
-
+var express = require('express');
 module.exports = function(app) {
   'use strict';
 
@@ -16,6 +16,7 @@ module.exports = function(app) {
   // middleware to use for all requests
   router.use(function(req, res, next) {
     //console.log(req);
+    if(res)
     next(); // make sure we go to the next routes and don't stop here
   });
 
@@ -36,6 +37,26 @@ module.exports = function(app) {
   app.use('/api/logout', require('./app/routes/logout'));
   app.use('/api/session', require('./app/routes/session'));
   app.use('/api/signup', require('./app/routes/signup'));
+  app.use('/', express.static(process.cwd() + '/client'));
+  app.use('/docs', express.static(process.cwd() + '/docs'));
+  app.use('/404', express.static(process.cwd() + '/404'));
+
+  app.get('*', function(req, res, next) {
+    var err = new Error();
+    err.status = 404;
+    next(err);
+  });
+
+  // handling 404 errors
+  app.use(function(err, req, res, next) {
+    if(err.status !== 404) {
+      return next();
+    }
+    if(err.status === 404){
+        res.redirect('/404');
+    }
+
+  });
 
   return router;
 

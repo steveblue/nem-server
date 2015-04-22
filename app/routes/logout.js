@@ -5,19 +5,19 @@ var SessionController = require('../controllers/session');
 var router = express.Router();
 
 /**
- * Login to the service.
+ * Logout of the service.
  *
- * endpoint: `api/login`
- * method: GET
+ * endpoint: `/logout`
+ * method: POST
  *
  *
  *
- * @return {Object} The logged in user.
+ * @return {Integer} 200.
  * @api public
  */
 
 
-router.get('/',function(req,res){
+router.post('/',function(req,res){
 
   req.logout();
   res.send(200);

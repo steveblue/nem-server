@@ -5,15 +5,20 @@ var SessionController = require('../controllers/session');
 var router = express.Router();
 var session = new SessionController();
 
+
 /**
- * Login to the service.
+ * Creates a new user.
+ * endpoint: `/signup`
+ * method: POST
  *
- * endpoint: `api/signup`
- * method: GET
+ * The following params should go in the request body.
  *
- *
- *
- * @return {Object} The logged in user.
+ * @param {String} firstName The new user's first name.
+ * @param {String} lastName The new user's last name.
+ * @param {String} username The new user's intended username.
+ * @param {String} password The new user's password.
+ * @param {String} email The new user's email address.
+ * @param {Object} avatar Contains one parameter (image) that expects a base64 image.
  * @api public
  */
 

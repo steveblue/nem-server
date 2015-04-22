@@ -8,10 +8,11 @@ var passport = require('passport');
 /**
  * Login to the service.
  *
- * endpoint: `api/login`
- * method: GET
+ * endpoint: `/login`
+ * method: POST
  *
- *
+ * @param {String} username
+ * @param {String} password
  *
  * @return {Object} The logged in user.
  * @api public

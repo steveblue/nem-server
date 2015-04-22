@@ -172,16 +172,18 @@ UserController.prototype.updateUserAvatar = function(req,res){
  */
 
 UserController.prototype.deleteUser = function(req,res){
-  User.remove({
-    _id: req.params.user_id
-  }, function(err, user) {
-    if (err) {
-      res.send(err);
-    }
-    res.json({
-      message: 'Successfully deleted'
-    });
-  });
+    //if(req.passport.user === req.params.user_id){
+        User.remove({
+            _id: req.params.user_id
+        }, function(err, user) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({
+                message: 'Successfully deleted'
+            });
+        });
+    //}
 };
 
 /**

@@ -33,12 +33,6 @@ SessionController.prototype.auth = function(req, res) {
   })(req, res, next);
 };
 
-/**
- * Creates a new user.
- *
- * @param {Object} req the request.
- * @param {Object} res the response.
- */
 
 SessionController.prototype.create = function(req, res, next){
 

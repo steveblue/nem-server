@@ -1,5 +1,4 @@
 // User Routes
-/* global req, res */
 
 var express = require('express');
 var router = express.Router();
@@ -10,7 +9,7 @@ var UserController = new Controller();
 /**
  * Lists all users.
  *
- * endpoint: `api/user/`
+ * endpoint: `/users`
  * method: GET
  *
  * NOTE: Will be refactored to only display online users.
@@ -24,22 +23,12 @@ router.get('/',function(req,res){
   UserController.fetchUsers(req,res);
 });
 
-/**
- * Creates a new user.
- * endpoint: `/users/`
- * method: POST
- *
- * The following params should go in the request body.
- *
- * @param {String} firstName The new user's first name.
- * @param {String} lastName The new user's last name.
- * @param {String} username The new user's intended username.
- * @api public
- */
+
 
 router.post('/',function(req,res){
   UserController.createUser(req,res);
 });
+
 /**
  * Fetchs a single user by id.
  * endpoint: `/users/:id`
@@ -54,6 +43,7 @@ router.post('/',function(req,res){
 router.get('/:user_id',function(req,res){
   UserController.fetchUser(req,res);
 });
+
 /**
  * Updates a user by id.
  * endpoint: `/users/:id`
@@ -64,6 +54,8 @@ router.get('/:user_id',function(req,res){
  * @param {String} firstName The new user's first name.
  * @param {String} lastName The new user's last name.
  * @param {String} username The new user's intended username.
+ * @param {String} email The new user's email address.
+ * @param {Object} avatar Contains one parameter (image) that expects a base64 image.
  * @api public
  */
 
