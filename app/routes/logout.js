@@ -19,8 +19,9 @@ var router = express.Router();
 
 router.post('/',function(req,res){
 
-  req.logout();
-  res.send(200);
+    req.session.destroy(function (err) {
+       res.send(200);
+    });
 
 });
 

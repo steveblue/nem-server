@@ -4,42 +4,51 @@
 // @authors: Steve Belovarich
 // ===========================================================================
 var express = require('express');
-module.exports = function(app) {
+var config = require('./config');
+var session = require('express-session');
+var router = require('express').Router();
+module.exports = function(app,passport) {
   'use strict';
-
-  var router = require('express').Router();
 
   // =========================================================================
   // ROUTER CONFIG
   // =========================================================================
 
-  // middleware to use for all requests
-  router.use(function(req, res, next) {
-    //console.log(req);
-    if(res)
-    next(); // make sure we go to the next routes and don't stop here
+  app.use(function(req, res, next) {
+
+    res.header('Access-Control-Allow-Origin', req.headers.origin); //wide open!
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type');
+
+    // intercept OPTIONS method
+    if (req.method == 'OPTIONS' ) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+
   });
 
-  // test route to make sure everything is working (accessed at GET http://localhost:5555/api)
-  router.get('/', function(req, res) {
-    res.json({
-      message: 'api is online.'
-    });
-  });
+  app.use(session({ secret: config.key, resave: true, saveUninitialized: false }));
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   // =========================================================================
   // ROUTES
   // =========================================================================
+  app.use('/', express.static(process.cwd() + '/client'));
+  app.use('/docs', express.static(process.cwd() + '/docs'));
+  app.use('/404', express.static(process.cwd() + '/404'));
 
   app.use('/api', router);
-  app.use('/api/user', require('./app/routes/user'));
   app.use('/api/login', require('./app/routes/login'));
   app.use('/api/logout', require('./app/routes/logout'));
   app.use('/api/session', require('./app/routes/session'));
   app.use('/api/signup', require('./app/routes/signup'));
-  app.use('/', express.static(process.cwd() + '/client'));
-  app.use('/docs', express.static(process.cwd() + '/docs'));
-  app.use('/404', express.static(process.cwd() + '/404'));
+  app.use('/api/user', require('./app/routes/user'));
+
 
   app.get('*', function(req, res, next) {
     var err = new Error();
@@ -49,12 +58,14 @@ module.exports = function(app) {
 
   // handling 404 errors
   app.use(function(err, req, res, next) {
+
     if(err.status !== 404) {
       return next();
     }
     if(err.status === 404){
-        res.redirect('/404');
+       res.redirect('/404');
     }
+
 
   });
 

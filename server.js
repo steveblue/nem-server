@@ -36,15 +36,6 @@ mongoose.connect('mongodb://'+config.mongo+':'+config.mongoPort); // connect to 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// Provide some basic error handling
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-});
-
-app.use(session({ secret: config.key, resave: true, saveUninitialized: false }));
-app.use(passport.initialize());
-app.use(passport.session());
-
 // =========================================================================
 // Passport Config
 // =========================================================================
@@ -79,7 +70,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
 // Load Modules
 // =========================================================================
 
-var routes = require('./router')(app);
+var routes = require('./router')(app,passport);
 
 // =========================================================================
 // Server Start

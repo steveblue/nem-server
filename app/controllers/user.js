@@ -15,6 +15,7 @@ var UserController = function(){};
 
 UserController.prototype.fetchUsers = function(req,res){
   if (req.user) {
+
     User.find(function(err, users) {
       if (err) {
         return res.send(err);
@@ -22,6 +23,7 @@ UserController.prototype.fetchUsers = function(req,res){
         return res.json(users);
       }
     });
+
   } else {
     res.send(401);
   }
@@ -95,7 +97,7 @@ UserController.prototype.updateUser = function(req,res){
 
   });
   }else{
-    res.send(401);
+    //res.send(401);
   }
 };
 
@@ -159,7 +161,7 @@ UserController.prototype.updateUserAvatar = function(req,res){
 
   });
   }else{
-    res.send(401);
+    //res.send(401);
   }
 };
 

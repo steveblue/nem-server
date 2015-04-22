@@ -7,7 +7,7 @@ var SessionController = function(){};
 
 SessionController.prototype.getCurrent = function(req, res, next) {
   if (!req.body) {
-      res.send(400);
+      res.send(500);
   }
   else {
       User.findOne({username: req.body.username}, function (err, results) {
@@ -16,7 +16,7 @@ SessionController.prototype.getCurrent = function(req, res, next) {
               res.send({user: results});
           }
           else {
-              res.send(400);
+              res.send(500);
           }
       });
   }
@@ -46,7 +46,7 @@ SessionController.prototype.create = function(req, res, next){
   User.findOne({username: user.username}, function (err, results) {
       if (err) return next(err);
       if (results) {
-          res.send('A user with this username already exists.', 400);
+          res.send('A user with this username already exists.', 500);
       }
       else {
           user.save(function (err, results) {
