@@ -4,7 +4,9 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var Controller = require('../controllers/user');
+var Session = require('../controllers/session');
 var UserController = new Controller();
+var SessionController = new Session();
 
 /**
  * Lists all users.
@@ -25,8 +27,8 @@ router.get('/',function(req,res){
 
 
 
-router.post('/',function(req,res){
-  UserController.createUser(req,res);
+router.post('/',function(req,res,next){
+    SessionController.create(req,res,next);
 });
 
 /**
