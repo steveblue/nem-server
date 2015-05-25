@@ -1,5 +1,6 @@
-var User = require('../models/user.js');
+var User = require('../models/user');
 var fs = require('fs');
+var uuid = require('node-uuid');
 
 var UserController = function(){};
 
@@ -13,12 +14,12 @@ var UserController = function(){};
  * @param {Object} res the response.
  */
 
-UserController.prototype.fetchUsers = function(req,res){
+UserController.prototype.fetchUsers = function(req,res,next){
   if (req.user) {
 
     User.find(function(err, users) {
       if (err) {
-        return res.send(err);
+        return next(err);
       } else {
         return res.json(users);
       }
@@ -37,11 +38,11 @@ UserController.prototype.fetchUsers = function(req,res){
  * @param {Object} res the response.
  */
 
-UserController.prototype.fetchUser = function(req,res){
+UserController.prototype.fetchUser = function(req,res,next){
   if (req.user) {
-    User.findById(req.params.user_id, function(err, user) {
+    User.findById(req.params._id, function(err, user) {
       if (err) {
-        res.send(err);
+        return next(err);
       } else {
         res.json(user);
       }
@@ -53,6 +54,48 @@ UserController.prototype.fetchUser = function(req,res){
 };
 
 
+UserController.prototype.createUser = function(req, res, next){
+
+  var user = new User(req.body);
+  var id = uuid.v4();
+  user.lastUpdated = user.created = new Date();
+  user.customer = {};
+
+  if(req.body.avatar){
+    user.avatar.image = '/img/user/avatar/user-avatar-'+user.username+'-'+id+'.jpg';
+  }
+
+  User.findOne({username: user.username}, function (err, results) {
+      if (err) return next(err);
+      if (results) {
+          res.send('A user with this username already exists.', 500);
+      }
+      else {
+
+          user.save(function (err, results) {
+
+              if (err) return next(err);
+
+              if(req.body.avatar){
+                  var buffer = new Buffer(req.body.avatar.image.replace(/^data:image\/(png|gif|jpeg);base64,/,''), 'base64');
+                  fs.writeFile('./img/user/avatar/user-avatar-'+user.username+'-'+id+'.jpg', buffer, 'base64', function(err) {
+                      if(err) {
+                        return next(err);
+                      } else{
+                        return res.json(user);
+                      }
+                  });
+              } else {
+                return res.json(user);
+              }
+
+          });
+
+      }
+  });
+};
+
+
 /**
  * Updates a user by id.
  *
@@ -61,12 +104,13 @@ UserController.prototype.fetchUser = function(req,res){
  */
 
 
-UserController.prototype.updateUser = function(req,res){
+UserController.prototype.updateUser = function(req, res, next){
   if (req.user) {
-  User.findById(req.params.user_id, function(err, user) {
+
+  User.findById(req.user._id, function(err, user) {
 
     if (err) {
-      res.send(err);
+      return next(err);
     }
 
     if (req.body.firstName) {
@@ -76,7 +120,24 @@ UserController.prototype.updateUser = function(req,res){
       user.lastName = req.body.lastName; // update the users first name
     }
     if (req.body.username) {
-      // do nothing
+        User.findById(req.body.username, function(err, user) {
+            if(err) {
+              return next(err);
+            }
+            else {
+                user.username = req.body.username;
+            }
+        });
+    }
+    if (req.body.email) {
+        User.findById(req.body.email, function(err, user) {
+            if(err) {
+              return next(err);
+            }
+            else {
+                user.email = req.body.email;
+            }
+        });
     }
 
     user.lastUpdated = new Date();
@@ -84,23 +145,45 @@ UserController.prototype.updateUser = function(req,res){
     // save the user
     user.save(function(err) {
       if (err) {
-        res.send(err);
+        return next(err);
+      } else {
+        res.send(user);
       }
-
-      res.json({
-        message: 'User updated!',
-        details: JSON.stringify(user),
-        request: JSON.stringify(req.body)
-      });
-
     });
 
   });
+
   }else{
-    //res.send(401);
+    res.send(401);
   }
 };
 
+/**
+ * Updates a user's password by id.
+ *
+ * @param {Object} req the request.
+ * @param {Object} res the response.
+ */
+
+
+
+UserController.prototype.updateUserPassword = function(req,res){
+    if (req.user) {
+
+      User.findById(req.params._id, function(err, user) {
+
+        if (err) {
+          return next(err);
+        } else {
+
+        }
+
+      });
+    }
+    else {
+      res.send(401);
+    }
+};
 
 /**
  * Updates a user's avatar by id.
@@ -128,10 +211,10 @@ UserController.prototype.updateUserAvatar = function(req,res){
 
   if (req.user) {
 
-  User.findById(req.params._id, function(err, user) {
+  User.findById(req.user._id, function(err, user) {
 
     if (err) {
-      res.send(err);
+      return next(err);
     }
     var id = uuid.v4();
     var buffer = decodeBase64Image(res.body.image);
@@ -142,7 +225,7 @@ UserController.prototype.updateUserAvatar = function(req,res){
     // save the user
     user.save(function(err) {
       if (err) {
-        res.send(err);
+        return next(err);
       }
 
       fs.writeFile('./img/user/avatar/user-avatar-'+user.username+'-'+id+'.jpg', buffer, 'base64', function(err) {
@@ -151,11 +234,7 @@ UserController.prototype.updateUserAvatar = function(req,res){
         }
       });
 
-      res.json({
-        message: 'User avatar updated!',
-        details: JSON.stringify(user),
-        request: JSON.stringify(req.body)
-      });
+      res.json(user);
 
     });
 
@@ -179,11 +258,9 @@ UserController.prototype.deleteUser = function(req,res){
             _id: req.params.user_id
         }, function(err, user) {
             if (err) {
-                res.send(err);
+              return next(err);
             }
-            res.json({
-                message: 'Successfully deleted'
-            });
+            res.send(200);
         });
     //}
 };
@@ -199,7 +276,7 @@ UserController.prototype.findUserByUsername = function(req,res){
   if(req.user){
     User.findOne({username: new RegExp('^'+req.params.username+'$', "i")}, function(err, user) {
       if (err) {
-        res.send(err);
+        return next(err);
       } else {
         res.json(user);
       }
@@ -208,5 +285,6 @@ UserController.prototype.findUserByUsername = function(req,res){
     res.send(401);
   }
 };
+
 
 module.exports = UserController;

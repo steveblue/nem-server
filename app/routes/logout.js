@@ -1,8 +1,9 @@
 // Session Auth Route
 
-var express = require('express');
-var SessionController = require('../controllers/session');
-var router = express.Router();
+var router = require('express').Router();
+var Controller = require('../controllers/session');
+var SessionController = new Controller();
+
 
 /**
  * Logout of the service.
@@ -17,12 +18,6 @@ var router = express.Router();
  */
 
 
-router.post('/',function(req,res){
-
-    req.session.destroy(function (err) {
-       res.send(200);
-    });
-
-});
+router.post('/',SessionController.logout);
 
 module.exports = router;

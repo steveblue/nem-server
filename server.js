@@ -10,6 +10,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
+var uuid = require('node-uuid');
+var cookieParser = require('cookie-parser');
 var LocalStrategy = require('passport-local').Strategy;
 
 
@@ -34,7 +36,18 @@ mongoose.connect('mongodb://'+config.mongo+':'+config.mongoPort); // connect to 
 // this will let us get the data from a POST
 
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(session({
+  genid: function(req) {
+    return uuid.v4(); // use UUIDs for session IDs
+  },
+  secret: 'your-secret-key',
+  saveUninitialized: false,
+  resave: false,
+  cookie: { maxAge: 600000 }
+}));
 app.use(bodyParser.urlencoded({extended: true}));
+
 
 // =========================================================================
 // Passport Config

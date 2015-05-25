@@ -1,15 +1,12 @@
 // Session Create Route
 
-var express = require('express');
-var SessionController = require('../controllers/session');
-var router = express.Router();
-var session = new SessionController();
+var router = require('express').Router();
+var Controller = require('../controllers/session');
+var SessionController = new Controller();
 
 
-router.post('/',function(req,res){
 
-  session.getCurrent(req,res);
+router.post('/', SessionController.validate);
 
-});
 
 module.exports = router;

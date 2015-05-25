@@ -1,0 +1,28 @@
+{
+  "name": "nem-boilerplate",
+  "version": "0.0.2",
+  "homepage": "https://github.com/steveblue/nem-server",
+  "authors": [
+    "Steve Belovarich (steveblue@gmail.com)"
+  ],
+  "description": "A boilerplate for Node.js REST API. Includes initial support for users, sessions, login, and logout.",
+  "main": "server.js",
+  "keywords": [
+    "rest",
+    "restful",
+    "api",
+    "http",
+    "node",
+    "node.js",
+    "express",
+    "passport"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

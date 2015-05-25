@@ -1,12 +1,12 @@
 {
   "name": "nem-server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "server.js",
   "private": true,
   "description": "Node, Express, Mongoose Server",
   "keywords": "node, express, npm, mongoose, server",
   "contributors": [
-    "Steve Belovarich <steve@mediahound.com>"
+    "Steve Belovarich <steveblue@gmail.com>"
   ],
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -22,6 +22,7 @@
     "mongoose": "~3.6.13",
     "node-uuid": "^1.4.3",
     "passport": "^0.2.1",
+    "passport-github": "^0.1.5",
     "passport-local": "^1.0.0",
     "stripe": "^3.3.4"
   }

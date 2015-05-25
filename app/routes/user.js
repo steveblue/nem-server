@@ -1,7 +1,6 @@
 // User Routes
 
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
 var User = require('../models/user');
 var Controller = require('../controllers/user');
 var Session = require('../controllers/session');
@@ -61,9 +60,7 @@ router.get('/:user_id',function(req,res){
  * @api public
  */
 
-router.put('/:user_id',function(req,res){
-  UserController.updateUser(req,res);
-});
+router.put('/:user_id', UserController.updateUser);
 /**
  * Deletes a user by id.
  * endpoint: `/users/:id`
@@ -74,9 +71,7 @@ router.put('/:user_id',function(req,res){
  * @param {String} id The user's id.
  * @api public
  */
-router.delete('/:user_id',function(req,res){
-  UserController.deleteUser(req,res);
-});
+router.delete('/:user_id', UserController.deleteUser);
 
 /**
  * Finds a user by username.
@@ -89,8 +84,6 @@ router.delete('/:user_id',function(req,res){
  * @api public
  */
 
-router.get('/find/:username',function(req,res){
-  UserController.findUserByUsername(req,res);
-});
+router.get('/find/:username',UserController.findUserByUsername);
 
 module.exports = router;

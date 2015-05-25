@@ -1,9 +1,9 @@
 // Session Create Route
 
-var express = require('express');
-var SessionController = require('../controllers/session');
-var router = express.Router();
-var session = new SessionController();
+var router = require('express').Router();
+var Controller = require('../controllers/user');
+var UserController = new Controller();
+
 
 
 /**
@@ -23,10 +23,6 @@ var session = new SessionController();
  */
 
 
-router.post('/',function(req,res,next){
-
-  session.create(req,res,next);
-
-});
+router.post('/', UserController.createUser);
 
 module.exports = router;

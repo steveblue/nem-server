@@ -1,72 +1,43 @@
 var User = require('../models/user');
 var passport = require('passport');
 var fs = require('fs');
-var uuid = require('node-uuid');
+
 
 var SessionController = function(){};
 
-SessionController.prototype.getCurrent = function(req, res, next) {
-  if (!req.body) {
-      res.send(500);
+SessionController.prototype.validate = function(req, res, next) {
+
+  if( req.session.sid === req.cookies['connect.sid'] ) {
+    res.send(200);
+  } else {
+    res.send(401);
   }
-  else {
-      User.findOne({username: req.body.username}, function (err, results) {
-          if (err) return next(err);
-          if (results) {
-              res.send({user: results});
-          }
-          else {
-              res.send(500);
-          }
-      });
-  }
+
 };
 
-SessionController.prototype.auth = function(req, res) {
+SessionController.prototype.login = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err); }
-    if (!user) { return res.redirect('/login'); }
+    if (err) { res.send(info.message); }
+    if (!user) { res.send(401); }
     req.login(user, function(err) {
       if (err) { return next(err); }
-      return res.json({user: user});
+      req.session.sid = req.cookies['connect.sid'];
+      res.cookie('connect.sid',req.cookies['connect.sid']);
+      res.json(user);
     });
   })(req, res, next);
 };
 
 
-SessionController.prototype.create = function(req, res, next){
-
-  var user = new User(req.body);
-  var id = uuid.v4();
-  user.lastUpdated = user.created = new Date();
-  if(req.body.avatar){
-    user.avatar.image = '/img/user/avatar/user-avatar-'+user.username+'-'+id+'.jpg';
-  }
-
-  User.findOne({username: user.username}, function (err, results) {
-      if (err) return next(err);
-      if (results) {
-          res.send('A user with this username already exists.', 500);
-      }
-      else {
-          user.save(function (err, results) {
-              if (err) return next(err);
-              if(req.body.avatar){
-                  var buffer = new Buffer(req.body.avatar.image.replace(/^data:image\/(png|gif|jpeg);base64,/,''), 'base64');
-                  fs.writeFile('./img/user/avatar/user-avatar-'+user.username+'-'+id+'.jpg', buffer, 'base64', function(err) {
-                      if(err) {
-                          console.log("err", err);
-                      }
-                  });
-              }
-              return res.send(200);
-          });
-      }
-  });
-};
 
 SessionController.prototype.logout = function(req, res) {
-
+  if(req.user) {
+    req.session.destroy(function (err) {
+       res.send(200);
+    });
+  } else {
+    res.send(401);
+  }
 };
 
 module.exports = SessionController;
