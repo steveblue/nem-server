@@ -1,9 +1,9 @@
-#Node Express Mongoose Server
+#Node Express Mongoose Boilerplate
 
-##API Boilerplate v0.5
+##API Boilerplate v0.0.2
 
 
-This repo is a boilerplate for creating new RESTful APIs with Node.js. Out of the box, the API offers user authentication by username and password. Some endpoints are protected and require user authentication. Create a new user, login, and begin making requests. Users are saved in MongoDB using Mongoose. Authorization is provided by Passport.
+This repo is a boilerplate for creating new RESTful APIs with Node.js. Out of the box, the API offers user authentication by username and password. Some endpoints are protected and require user authentication. Create a new user, login, and begin making requests. Reference the provided templates to create your own Controllers and Routes. Users are saved in MongoDB using Mongoose. Authorization is provided by Passport, Sessions created with express-session and a cookie set on the user's browser.
 
 Authors: Steve Belovarich
 
