@@ -17,6 +17,7 @@ Authors: Steve Belovarich
 
 ###Installation
 
+
 NOTE: If you do not have npm or gulp you will need to install them globally.
 
 ```brew install node```
@@ -24,7 +25,7 @@ NOTE: If you do not have npm or gulp you will need to install them globally.
 ```npm install --global gulp```
 
 
-1. Clone the repo into a local folder
+1. Clone the repo into a local folder or install via bower  ```bower install nem-boilerplate``.
 2. cd into project folder
 3. run `npm install`
 
