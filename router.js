@@ -49,25 +49,25 @@ module.exports = function(app,passport) {
   app.use('/api/signup', require('./app/routes/signup'));
   app.use('/api/user', require('./app/routes/user'));
 
-
-  app.get('*', function(req, res, next) {
-    var err = new Error();
-    err.status = 404;
-    next(err);
-  });
-
-  // handling 404 errors
-  app.use(function(err, req, res, next) {
-
-    if(err.status !== 404) {
-      return next();
-    }
-    if(err.status === 404){
-       res.redirect('/404');
-    }
-
-
-  });
+  //
+  // app.get('*', function(req, res, next) {
+  //   var err = new Error();
+  //   err.status = 404;
+  //   next(err);
+  // });
+  //
+  // // handling 404 errors
+  // app.use(function(err, req, res, next) {
+  //
+  //   if(err.status !== 404) {
+  //     return next();
+  //   }
+  //   if(err.status === 404){
+  //      res.redirect('/404');
+  //   }
+  //
+  //
+  // });
 
   return router;
 
