@@ -1,5 +1,3 @@
-// Session Auth Route
-
 var router = require('express').Router();
 var Controller = require('../controllers/session');
 var SessionController = new Controller();
@@ -17,6 +15,6 @@ var SessionController = new Controller();
  * @api public
  */
 
- router.post('/', SessionController.login);
+router.post('/', SessionController.login);
 
 module.exports = router;

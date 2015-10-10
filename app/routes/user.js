@@ -1,5 +1,3 @@
-// User Routes
-
 var router = require('express').Router();
 var User = require('../models/user');
 var Controller = require('../controllers/user');
@@ -75,6 +73,7 @@ router.get('/:user_id',function(req,res){
  */
 
 router.put('/:user_id', UserController.updateUser);
+
 /**
  * Deletes a user by id.
  * endpoint: `/user/:id`
@@ -85,6 +84,7 @@ router.put('/:user_id', UserController.updateUser);
  * @param {String} id The user's id.
  * @api public
  */
+ 
 router.delete('/:user_id', UserController.deleteUser);
 
 /**
