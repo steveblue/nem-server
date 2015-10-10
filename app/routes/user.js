@@ -10,7 +10,7 @@ var SessionController = new Session();
 /**
  * Lists all users.
  *
- * endpoint: `/users`
+ * endpoint: `/user`
  * method: GET
  *
  * NOTE: Will be refactored to only display online users.
@@ -24,15 +24,29 @@ router.get('/',function(req,res){
   UserController.fetchUsers(req,res);
 });
 
-
+/**
+ * Creates a new user.
+ * endpoint: `/user`
+ * method: POST
+ *
+ * The following params should go in the request body.
+ *
+ * @param {String} firstName The new user's first name.
+ * @param {String} lastName The new user's last name.
+ * @param {String} username The new user's intended username.
+ * @param {String} password The new user's password.
+ * @param {String} email The new user's email address.
+ * @param {Object} avatar Contains one parameter (image) that expects a base64 image.
+ * @api public
+ */
 
 router.post('/',function(req,res,next){
-    SessionController.create(req,res,next);
+    UserController.createUser(req,res);
 });
 
 /**
  * Fetchs a single user by id.
- * endpoint: `/users/:id`
+ * endpoint: `/user/:id`
  * method: GET
  *
  * The following params should go in path.
@@ -47,7 +61,7 @@ router.get('/:user_id',function(req,res){
 
 /**
  * Updates a user by id.
- * endpoint: `/users/:id`
+ * endpoint: `/user/:id`
  * method: PUT
  *
  * The following params should go in request body.
@@ -63,7 +77,7 @@ router.get('/:user_id',function(req,res){
 router.put('/:user_id', UserController.updateUser);
 /**
  * Deletes a user by id.
- * endpoint: `/users/:id`
+ * endpoint: `/user/:id`
  * method: DELETE
  *
  * The following params should go in path.
@@ -75,7 +89,7 @@ router.delete('/:user_id', UserController.deleteUser);
 
 /**
  * Finds a user by username.
- * endpoint: `/users/:id`
+ * endpoint: `/user/:id`
  * method: GET
  *
  * The following params should go in path.

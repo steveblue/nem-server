@@ -96,6 +96,7 @@ UserController.prototype.createUser = function(req, res, next){
 };
 
 
+
 /**
  * Updates a user by id.
  *

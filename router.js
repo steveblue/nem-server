@@ -46,7 +46,6 @@ module.exports = function(app,passport) {
   app.use('/api/login', require('./app/routes/login'));
   app.use('/api/logout', require('./app/routes/logout'));
   app.use('/api/session', require('./app/routes/session'));
-  app.use('/api/signup', require('./app/routes/signup'));
   app.use('/api/user', require('./app/routes/user'));
 
   //
