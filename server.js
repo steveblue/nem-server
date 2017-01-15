@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
-var uuid = require('node-uuid');
+var uuid = require('uuid');
 var cookieParser = require('cookie-parser');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -25,7 +25,7 @@ var port = config.originPort || process.env.PORT; // set our port
 // =========================================================================
 // MongoDB Config
 // =========================================================================
-
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://'+config.mongo+':'+config.mongoPort); // connect to our database
 
 // =========================================================================

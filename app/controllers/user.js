@@ -1,6 +1,6 @@
 var User = require('../models/user');
 var fs = require('fs');
-var uuid = require('node-uuid');
+var uuid = require('uuid');
 
 var UserController = function(){};
 
@@ -26,7 +26,7 @@ UserController.prototype.fetchUsers = function(req,res,next){
     });
 
   } else {
-    res.send(401);
+    res.status(401).send();
   }
 
 };
@@ -40,16 +40,17 @@ UserController.prototype.fetchUsers = function(req,res,next){
 
 UserController.prototype.fetchUser = function(req,res,next){
   if (req.user) {
-    User.findById(req.params._id, function(err, user) {
+    User.findById(req.params.user_id, function(err, user) {
       if (err) {
         return next(err);
       } else {
-        res.json(user);
+        console.log(user);
+        res.status(200).json(user);
       }
     });
   }
   else {
-    res.send(401);
+    res.status(401).send();
   }
 };
 
@@ -68,7 +69,7 @@ UserController.prototype.createUser = function(req, res, next){
   User.findOne({username: user.username}, function (err, results) {
       if (err) return next(err);
       if (results) {
-          res.send('A user with this username already exists.', 500);
+          res.status(500).send('A user with this username already exists.');
       }
       else {
 
@@ -148,14 +149,16 @@ UserController.prototype.updateUser = function(req, res, next){
       if (err) {
         return next(err);
       } else {
-        res.send(user);
+
+        res.status(200).send(user);
+
       }
     });
 
   });
 
   }else{
-    res.send(401);
+    res.status(401).send();
   }
 };
 
@@ -182,7 +185,7 @@ UserController.prototype.updateUserPassword = function(req,res){
       });
     }
     else {
-      res.send(401);
+      res.status(401).send();
     }
 };
 
@@ -241,7 +244,7 @@ UserController.prototype.updateUserAvatar = function(req,res){
 
   });
   }else{
-    //res.send(401);
+    //res.status(401).send();
   }
 };
 
@@ -261,7 +264,7 @@ UserController.prototype.deleteUser = function(req,res){
             if (err) {
               return next(err);
             }
-            res.send(200);
+            res.status(200).send();
         });
     //}
 };
@@ -283,7 +286,7 @@ UserController.prototype.findUserByUsername = function(req,res){
       }
     });
   }else{
-    res.send(401);
+    res.status(401).send();
   }
 };
 
