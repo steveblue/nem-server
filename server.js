@@ -37,15 +37,15 @@ mongoose.connect('mongodb://'+config.mongo+':'+config.mongoPort); // connect to 
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(session({
-  genid: function(req) {
-    return uuid.v4(); // use UUIDs for session IDs
-  },
-  secret: 'your-secret-key',
-  saveUninitialized: false,
-  resave: false,
-  cookie: { maxAge: 600000 }
-}));
+// app.use(session({
+//   genid: function(req) {
+//     return uuid.v4(); // use UUIDs for session IDs
+//   },
+//   secret: '87326498762319847698327649812736412301293847016934',
+//   saveUninitialized: false,
+//   resave: false,
+//   cookie: { maxAge: 600000 }
+// }));
 app.use(bodyParser.urlencoded({extended: true}));
 
 

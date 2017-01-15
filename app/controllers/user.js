@@ -50,7 +50,7 @@ UserController.prototype.fetchUser = function(req,res,next){
     });
   }
   else {
-    res.status(401).send();
+    res.status(401).send("Unauthorized");
   }
 };
 
